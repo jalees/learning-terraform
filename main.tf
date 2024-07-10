@@ -14,6 +14,11 @@ data "aws_ami" "app_ami" {
   owners = ["979382823631"] # Bitnami
 }
 
+data "aws_vpc" "default" {
+
+default = true
+
+}
 resource "aws_instance" "web" {
   ami           = data.aws_ami.app_ami.id
   instance_type = "t3.nano"
@@ -31,4 +36,13 @@ resource "aws_instance" "app" {
   tags = {
     Name = "Hello World App"
   }
+}
+
+
+resource "net_sg" "sg1" {
+  source                   = "terraform-aws-modules/security-group/aws"
+  version                  = "5.1.2"
+  name                     = "blog_new"
+  vpc                      = data.aws_vpc.default.id
+  ingress_rules            = ["https-443-tcp"]
 }

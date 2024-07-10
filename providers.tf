@@ -11,3 +11,6 @@ provider "aws" {
   region  = "us-west-2"
 }
 
+provider "net" {
+  region  = "us-west-2"
+}

@@ -23,3 +23,12 @@ resource "aws_instance" "web" {
     Created_by = "Jalees"
   }
 }
+
+resource "aws_instance" "app" {
+  ami = data.aws_ami.app_ami.id
+  instance_type = "t2.nano"
+  
+  tags = {
+    Name = "Hello World App"
+  }
+}
